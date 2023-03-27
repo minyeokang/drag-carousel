@@ -1,0 +1,5 @@
+* { padding: 0; margin: 0; box-sizing: border-box; } 
+html { font-size: 6.25%; } 
+body { font-size: 16rem; } 
+ol, li { list-style: none; } 
+a { text-decoration: none; color: #000; } 
