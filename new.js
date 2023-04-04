@@ -36,7 +36,17 @@ $items.forEach((item, index) => {
 
         // otherItem.style.transform = `rotate(${degDirection}deg) translateX(${tranX}px) translateY(${translateY}px)`; 
 
+        //each item들도 움직이고 클릭한 아이템은 rotate 0, translateY도 0 그 옆에있는 거들도 값이 업데이트 되어야 함.. - 코드펜 다시 검사도구에서 x,y값 어떻게 수학적으로 변하는지 계산 
 
+
+        /**
+         * 
+         * z-index처럼 미들인덱스 주위로 값이 변하는데 
+         * 미들인덱스보다 작으면 -0.1, 크면 그냥 0.1 인 변수가 있고 
+         * x값은 이 변수 * 800%
+         * y값은 이 변수 * 200% 
+         * 이 xy값을 transform저기에 넣던지, setProperty로 코드펜처럼 해보던지 
+         */
     });
 
   });
