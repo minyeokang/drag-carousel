@@ -5,17 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
+<style>
+    .btn{width: 50px; height: 50px; background: #ddd;display: inline-block; margin: 10px;}
+</style>
 </head>
 <body>
 <!-- 이걸로 forEach 테스트 하기 (nested forEach)
 https://codechacha.com/ko/javascript-foreach/
 -->
+<div class="btn"></div>
+<div class="btn"></div>
+<div class="btn"></div>
+<div class="btn"></div>
     <script>
 const arr = ['apple', 'kiwi', 'grape', 'orange'];
-
-arr.forEach((item, index) => {
+const btn = document.querySelectorAll(".btn")
+btn.forEach((item, index) => {
   console.log("index: " + index + ", item: " + item);
+  item.addEventListener("click", function(e){
+    console.log(e.clientX) //4번 반복 
+    btn.forEach((otheritem, otherindex)=>{
+        console.log(`origin : ${index} , ${item}`)
+/*      0번째 아이템을 클릭하면 (이밴트리스너 달린 자체의 0번째 클릭) 
+        index는 당연히 0 
+        그치만 중첩된 forEach문은 이 안에서 또 동작하기때문에 0 1 2 3 내뱉음 
+        원래 forEach돌려서 console찍으면 0 1 2 3 내뱉는거 처럼 
+*/
+        console.log(`other : ${otherindex}, ${otheritem}`)
+    })
+  })
 });
     </script>
 </body>
