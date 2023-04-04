@@ -46,6 +46,13 @@ $items.forEach((item, index) => {
          * x값은 이 변수 * 800%
          * y값은 이 변수 * 200% 
          * 이 xy값을 transform저기에 넣던지, setProperty로 코드펜처럼 해보던지 
+         * 
+         * let root = document.documentElement;
+
+root.addEventListener("mousemove", e => {
+  root.style.setProperty('--mouse-x', e.clientX + "px");
+  root.style.setProperty('--mouse-y', e.clientY + "px");
+});
          */
     });
 
