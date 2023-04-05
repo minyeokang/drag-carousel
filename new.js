@@ -1,60 +1,57 @@
-const $items = document.querySelectorAll('.item');
+const $items = document.querySelectorAll(".item");
 const highestIndex = $items.length;
 const middleIndex = Math.floor($items.length / 2);
 
 let translateX;
 let translateY;
 let rotate;
-
+let progress = 50;
+let active = 0;
 
 $items.forEach((item, index) => {
   const distanceFromMiddle = Math.abs(index - middleIndex);
   const zIndex = highestIndex - distanceFromMiddle;
   item.style.zIndex = zIndex;
 
-  rotate = 10 * distanceFromMiddle
-  let degDirection =  index < middleIndex ? rotate * -1 : rotate
- 
-  translateX = 20 * distanceFromMiddle
-  let tranX = index > middleIndex ? 0 : translateX
-//   console.log(tranX)
+  rotate = 10 * distanceFromMiddle;
+  let degDirection = index < middleIndex ? rotate * -1 : rotate;
 
-  translateY = 80 * distanceFromMiddle
-  let tranY = index < middleIndex ? translateY * -1 : translateY
-//   console.log(tranY)
+  translateX = 20 * distanceFromMiddle;
+  let tranX = index > middleIndex ? 0 : translateX;
+  //   console.log(tranX)
 
-  item.style.transform = `rotate(${degDirection}deg) translateX(${tranX}px) translateY(${tranY}px)`; 
+  translateY = 80 * distanceFromMiddle;
+  let tranY = index < middleIndex ? translateY * -1 : translateY;
+  //   console.log(tranY)
 
-
-  item.addEventListener('click', function(e) {
+  const displayItems = (item, index, active) => {
+    item.style.setProperty("--active", (index - active) / $items.length);
+  };
+  const animate = () => {
+    progress = Math.max(0, Math.min(progress, 100));
+    active = Math.floor((progress / 100) * ($items.length - 1));
+    // item.style.transform = `rotate(${degDirection}deg) translateX(${tranX}px) translateY(${tranY}px)`;
+    // root.style.setProperty('--active', 0.1);
+    item.style.setProperty("--active", (index - active) / $items.length);
+    console.log((index - active) / $items.length);
+    $items.forEach((item, index) => displayItems(item, index, active));
+  };
+  animate();
+  item.addEventListener("click", function (e) {
     $items.forEach((otherItem, otherIndex) => {
-        const distance = Math.abs(otherIndex - index);
-        
-        const z = $items.length - distance 
-        otherItem.style.zIndex = z;
+      const distance = Math.abs(otherIndex - index);
 
+      const z = $items.length - distance;
+      otherItem.style.zIndex = z;
 
-        // otherItem.style.transform = `rotate(${degDirection}deg) translateX(${tranX}px) translateY(${translateY}px)`; 
+      progress = (index / $items.length) * 100 + 10;
+      animate();
 
-        //each item들도 움직이고 클릭한 아이템은 rotate 0, translateY도 0 그 옆에있는 거들도 값이 업데이트 되어야 함.. - 코드펜 다시 검사도구에서 x,y값 어떻게 수학적으로 변하는지 계산 
-
-
-        /**
-         * 
-         * z-index처럼 미들인덱스 주위로 값이 변하는데 
-         * 미들인덱스보다 작으면 -0.1, 크면 그냥 0.1 인 변수가 있고 
-         * x값은 이 변수 * 800%
-         * y값은 이 변수 * 200% 
-         * 이 xy값을 transform저기에 넣던지, setProperty로 코드펜처럼 해보던지 
-         * 
-         * let root = document.documentElement;
-
-root.addEventListener("mousemove", e => {
-  root.style.setProperty('--mouse-x', e.clientX + "px");
-  root.style.setProperty('--mouse-y', e.clientY + "px");
-});
-         */
+      console.log(active);
+      console.log(progress);
+const getStyle = otherItem.style
+const getit = getStyle.getPropertyValue('translateX')
+console.log(getit)
     });
-
   });
 });
